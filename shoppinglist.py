@@ -37,5 +37,6 @@ while True:
         break                                                           #while/break loop
     else:
         print("Invalid selection. Please choose 1, 2 or 3.")   
-
+    if __name__ == "__main__":
+        main()
 
