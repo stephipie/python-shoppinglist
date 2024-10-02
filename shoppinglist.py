@@ -17,11 +17,12 @@ print(shoppinglist)
 def show_shoppinglist():
     if shoppinglist:
         print("Your shoppinglist")
-    for item in shoppinglist:                   # For-Loop to print every item of my shoppinglist
-        print(item) 
+        for item in shoppinglist:                   # For-Loop to print every item of my shoppinglist
+            print(item) 
     else:
         print("Your shoppinglist is empty")
 # While-Loop to keep the programm running 
+def main():
 while True:
     print("-----Shoppinglist-----")
     print("1. Add article to your shoppinglist")
@@ -37,6 +38,6 @@ while True:
         break                                                           #while/break loop
     else:
         print("Invalid selection. Please choose 1, 2 or 3.")   
-    if __name__ == "__main__":
-        main()
+if __name__ == "__main__":
+    main()
 
