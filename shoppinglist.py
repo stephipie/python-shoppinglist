@@ -23,21 +23,21 @@ def show_shoppinglist():
         print("Your shoppinglist is empty")
 # While-Loop to keep the programm running 
 def main():
-while True:
-    print("-----Shoppinglist-----")
-    print("1. Add article to your shoppinglist")
-    print("2. Show shoppinglist")
-    print("3. End the programm")
-    choice = int(input("Please choose 1, 2 or 3: "))
-    if choice == 1:
-        add_item()
-    elif choice == 2:
-        show_shoppinglist()
-    elif choice == 3:
-        print("Program is ended! Goodbye, see you soon.")
+    while True:
+        print("-----Shoppinglist-----")
+        print("1. Add article to your shoppinglist")
+        print("2. Show shoppinglist")
+        print("3. End the programm")
+        choice = int(input("Please choose 1, 2 or 3: "))
+        if choice == 1:
+            add_item()
+        elif choice == 2:
+            show_shoppinglist()
+        elif choice == 3:
+            print("Program is ended! Goodbye, see you soon.")
         break                                                           #while/break loop
     else:
-        print("Invalid selection. Please choose 1, 2 or 3.")   
+            print("Invalid selection. Please choose 1, 2 or 3.")   
 if __name__ == "__main__":
     main()
 
