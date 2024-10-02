@@ -35,8 +35,8 @@ def main():
             show_shoppinglist()
         elif choice == 3:
             print("Program is ended! Goodbye, see you soon.")
-        break                                                           #while/break loop
-    else:
+            break                                                           #while/break loop
+        else:
             print("Invalid selection. Please choose 1, 2 or 3.")   
 if __name__ == "__main__":
     main()
