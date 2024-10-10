@@ -1,43 +1,87 @@
-# Create a shoppinglist with Python
-# First we set a variable with the name shoppinglist
-shoppinglist = []
+import sqlite3      # import sqlite3 to be able to connect
 
-# Define  the add_item function
-def add_item():
-# Ask user for input    
-    item = input("Please insert the article you want to add to your shoppinglist: ")
-    print(item)
-# Check if the shopping list is empty    
-    if item == '':
-        None
-    else:
-        shoppinglist.append(item)   #.append is a function to add e.g. items
-print(shoppinglist)
-# Define a function to show shoppinglist
+# connect to sqlite database (if not exist, create)
+conn = sqlite3.connect('groceries.db')
+
+# create cursor object to run sql commands
+cursor = conn.cursor()
+
+# create table to groceries.db
+cursor.execute('''
+CREATE TABLE IF NOT EXISTS shoppinglist (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    name VARCHAR(32) NOT NULL,
+    amount INTEGER NOT NULL,
+    price FLOAT);
+''')
+# create first function to add input (CREATE)
+def add_groceries(name, amount, price):
+    cursor.execute('''
+INSERT INTO shoppinglist (name, amount, price) VALUES (?, ?, ?)
+''', (name, amount, price))
+    conn.commit()
+    print(f"{name} was added.")
+
+# create read function
 def show_shoppinglist():
-    if shoppinglist:
-        print("Your shoppinglist")
-        for item in shoppinglist:                   # For-Loop to print every item of my shoppinglist
-            print(item) 
-    else:
-        print("Your shoppinglist is empty")
+    cursor.execute('SELECT * FROM shoppinglist')
+    shoppinglist = cursor.fetchall()
+    for groceries in shoppinglist:
+        print(groceries) 
+
+# create update function
+def update_groceries(id, name, amount, price):
+    cursor.execute('''
+UPDATE shoppinglist SET name = ?, amount = ?, price = ?
+WHERE id = ?
+''', (name, amount, price, id))
+    conn.commit()
+    print(f"update groceries with id {id}")  
+
+# create delete function
+def delete_groceries(id):
+    cursor.execute('''
+DELETE FROM shoppinglist WHERE id = ?
+''',(id,))
+    conn.commit()
+    print(f"Groceries with id {id} has been deleted.")
+
 # While-Loop to keep the programm running 
 def main():
     while True:
         print("-----Shoppinglist-----")
-        print("1. Add article to your shoppinglist")
+        print("1. Add groceries to your shoppinglist")
         print("2. Show shoppinglist")
-        print("3. End the programm")
-        choice = int(input("Please choose 1, 2 or 3: "))
+        print("3. Update groceries")
+        print("4. Delete groceries")
+        print("5. End the programm")
+
+        choice = int(input("Please choose 1, 2, 3, 4 or 5: "))
+
         if choice == 1:
-            add_item()
+            print("Please enter groceries you want to add to your shoppinglist: ")
+            name = input("name: ")
+            amount = input("amount: ")
+            price = input("price: ")
+            add_groceries(name, amount, price)
         elif choice == 2:
             show_shoppinglist()
         elif choice == 3:
+            print("Please update the data with id: ")
+            id = input("id: ")
+            name = input("name: ")
+            amount = input("amount: ")
+            price = input("price: ")
+            update_groceries(id, name, amount, price)
+        elif choice == 4:
+            print("Please enter the id of the groceries you want to delete: ")
+            id = input("id: ")
+            delete_groceries(id)
+        elif choice == 5:
             print("Program is ended! Goodbye, see you soon.")
-            break                                                           #while/break loop
+            break                                                           # breaks the loop
         else:
-            print("Invalid selection. Please choose 1, 2 or 3.")   
+            print("Invalid input. Please choose 1, 2, 3, 4 or 5.")   
 if __name__ == "__main__":
     main()
 
